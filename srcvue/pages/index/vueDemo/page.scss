@@ -1,0 +1,220 @@
+/*页面样式*/
+
+body {
+    background-color: white;
+    .page {
+        font-size: 0.4267rem;
+    }
+}
+
+.presale-list {
+    padding-top: pxToRem(16);
+    &.unExpanded {
+        .item {
+            display: none;
+        }
+        .item:nth-child(-n + 2) {
+            display: block;
+        }
+        .item:nth-child(2) {
+            margin-bottom: 0 !important;
+        }
+    }
+    .item:last-child {
+        margin-bottom: 0 !important;
+    }
+    .item {
+        background-color: #fff;
+        padding: pxToRem(20);
+        padding-left: pxToRem(16);
+        margin-bottom: pxToRem(26);
+        border-radius: pxToRem(12);
+        color: #a9a9a9;
+        font-size: pxToRem(24);
+        box-shadow: 0 0 pxToRem(10) #ebeced;
+        .hd {
+            line-height: pxToRem(24);
+            .col-left {
+                font-size: 0;
+                .countdown {
+                    font-size: pxToRem(24);
+                    .countdown-text {
+                        position: relative;
+                        padding-left: pxToRem(54);
+                        .hot-icon {
+                            position: absolute;
+                            top: 50%;
+                            left: 0;
+                            @include prefix(transform, translateY(-50%));
+                        }
+                    }
+                    .timeobj {
+                        color: #fff;
+                        background-color: #000;
+                        width: pxToRem(34);
+                        height: pxToRem(34);
+                        line-height: pxToRem(34);
+                        display: inline-block;
+                        font-weight: bold;
+                        text-align: center;
+                        border-radius: pxToRem(7);
+                        margin: 0 pxToRem(7);
+                    }
+                }
+            }
+            .col-right {
+                color: #d4a95b;
+                position: relative;
+                padding: pxToRem(26) 0;
+                margin: pxToRem(-26) 0;
+                padding-left: pxToRem(35);
+                .icon-money {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    background: url(//qiniu-cdn7.jinxidao.com/dvb/frontv2/images/icon_money.png) no-repeat;
+                    background-size: 100% 100%;
+                    width: pxToRem(27);
+                    height: pxToRem(30);
+                    display: inline-block;
+                    @include prefix(transform, translateY(-52%));
+                }
+            }
+        }
+        .bd {
+            position: relative;
+            margin-top: pxToRem(20);
+            .product-pic {
+                height: pxToRem(160);
+                width: pxToRem(240);
+                border-radius: pxToRem(8);
+                /*border-radius导致overflow:hidden失效兼容，父级元素增加该属性*/
+                
+                -webkit-transform: rotate(0deg);
+                overflow: hidden;
+                position: absolute;
+                left: 0;
+                .image {
+                    width: 100%;
+                    height: 100%;
+                }
+                .sale-rate {
+                    position: absolute;
+                    bottom: 0;
+                    color: #fff;
+                    width: 100%;
+                    &.soldout {
+                        background-color: rgba(255, 88, 60, 0.66);
+                    }
+                    /*.sp-outter{
+                                position: absolute;
+                                top: 45%;
+                                left: 0;
+                                padding: 0 pxToRem(10);
+                                @include prefix(transform, translateY(-50%));
+
+                                .sp1{
+                                    display: block;
+                                }
+
+                                .sp2{
+                                    margin-top: pxToRem(5);
+                                    display: inline-block;
+                                }
+
+                            }*/
+                    
+                    .rate {
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        width: 100%;
+                        height: pxToRem(30);
+                        display: inline-block;
+                        overflow: hidden;
+                        background-color: rgba(51, 51, 51, 0.48);
+                        .percentage {
+                            width: 30%;
+                            background-color: rgba(255, 88, 60, 0.82);
+                            height: 100%;
+                            display: inline-block;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                        }
+                        .rate-text {}
+                        .sp2 {
+                            padding-left: pxToRem(12);
+                            position: relative;
+                            font-size: pxToRem(22);
+                            line-height: pxToRem(22);
+                        }
+                    }
+                }
+            }
+            .main {
+                position: relative;
+                margin-left: pxToRem(260);
+                min-height: pxToRem(160);
+                .p-title {
+                    font-size: pxToRem(28);
+                    color: #333;
+                    @include ellipsis(2);
+                }
+                .origin-value {
+                    text-decoration: line-through;
+                }
+                .face-value {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    color: #ff7124;
+                    .sp1 {
+                        font-size: pxToRem(32);
+                        font-weight: bold;
+                        margin-right: pxToRem(8);
+                    }
+                }
+                .operation {
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    .btn {
+                        width: pxToRem(160);
+                        height: pxToRem(56);
+                        line-height: pxToRem(56);
+                        display: inline-block;
+                        text-align: center;
+                        background: -webkit-gradient(linear, left top, right bottom, from(#ff583c), to(#ff7124));
+                        border-radius: pxToRem(7);
+                        color: #fff;
+                        font-size: pxToRem(28);
+                        box-shadow: 0 0 pxToRem(12) rgba(51, 51, 51, 0.12);
+                        &.disabled {
+                            background-color: #afb3b6;
+                        }
+                    }
+                }
+                .tag-sale-out {
+                    position: absolute;
+                    right: pxToRem(-20);
+                    bottom: pxToRem(-10);
+                    width: pxToRem(106);
+                    height: pxToRem(120);
+                    background: url(//qiniu-cdn7.jinxidao.com/dvb/front/images/soldout.png) no-repeat;
+                    background: url(//qiniu-cdn7.jinxidao.com/dvb/frontv2/images/soldout.png) no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+        }
+    }
+
+    .hot-icon{
+        display: inline-block;
+        width: pxToRem(42);
+        height: pxToRem(44);
+        background: url(./../../../assets/images/hot_hong.png) no-repeat;
+        background-size: 100% 100%;
+        vertical-align: middle;
+    }
+}

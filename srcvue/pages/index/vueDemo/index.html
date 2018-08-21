@@ -1,0 +1,221 @@
+<!-- 当前没啥用，忽略 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="email=no" name="format-detection" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <script type="text/javascript" src='http://dvb-dev.yaochufa.com/srcv2/js/lib/mobileUtil.js?v=112123123211533647907'></script>
+    <script type="text/javascript">
+    mobileUtil.fixScreen();
+
+    var $html = document.querySelector("html"),
+        htmlSize = $html.getAttribute("style");
+    var $viewport = document.querySelector("meta[name=viewport]"),
+        viewport = $viewport.getAttribute("content");
+    var dpr = $html.dataset.dpr,
+        htmlFontSize = $html.style.fontSize.split("px")[0];
+    $viewport.setAttribute("content", 'initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no');
+    $html.setAttribute("style", 'font-size: ' + htmlFontSize / dpr + 'px!important;');
+    /*获取url中的参数*/
+    function getUrlParams(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return decodeURI(r[2]);
+        return null;
+    }
+    </script>
+    <style type="text/css">
+    [v-cloak] {
+        display: none;
+    }
+    </style>
+    <script type="text/javascript">
+    window._navigatorUserAgent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36' || window.navigator.userAgent;
+    // 全局项目相关配置变量值
+    window._globalConf = {
+        frontMobileEnv: "" || 'wx', // 当前设备环境，'app' 或 wx其他
+        frontEnv: "local" || 'production', //当前环境 'local', 'test', 'production'
+        frontIsYufabuEnv: ~~("0" || 0), //当前环境 是否预发布环境
+        frontUseQiniu: ~~("1" || 1), //当前静态资源是否加载七牛 1:加载七牛, 0:加载项目
+        frontSkin: "normal" || 'normal', //当前使用的皮肤 'normal':普通皮肤 , 'kapasi':卡帕斯皮肤
+        staticVersion: "11212312321", // 静态资源版本号
+    };
+    </script>
+    <script type="text/javascript">
+    // 获取设备环境属性
+    // mobileEnv: "app":云客app内嵌， "wx"：微信浏览器
+    // mobileVersion: "3.5.9" 设备版本号
+    (function() {
+        var _ua = window._navigatorUserAgent || navigator.userAgent,
+            _version = "";
+        if (_ua.match(/Yunkezan/i)) {
+            window.mobileEnv = "app";
+            window.mobileVersion = _ua.split(/AppVersion\//i)[1] || '';
+            window.mobileVersion = window.mobileVersion.split(' ')[0] || '';
+        } else {
+            window.mobileEnv = "wx";
+            window.mobileVersion = undefined;
+        }
+
+        window.mobileSystem = /android/i.test(_ua) ? 'android' : "ios";
+    })();
+
+    // 目前app端使用，判断用户是否游客身份
+    var isTourist = false;
+
+    // ios当前处于的审核版本 eg:1.0.1
+    var iOSVerifyingVersion = "1.0.1,1.0.2,1.0.3" || "";
+    </script>
+    <script type="text/javascript">
+    var hotelName = "";
+    var coverPic = "https://ykz-cdn1-https.jinxidao.com/ArrayhotelId_c5a5615f9243b96bb6fd8580971d04bf.jpeg";
+    var hotelPhone = "";
+
+    // 全局集团，首个酒店信息
+    var _tempHotelInfoStr = '{"coverPic":"https:\/\/ykz-cdn1-https.jinxidao.com\/ArrayhotelId_c5a5615f9243b96bb6fd8580971d04bf.jpeg"}';
+    var _tempHotelInfo = {};
+    try {
+        _tempHotelInfo = JSON.parse(_tempHotelInfoStr || '{}');
+    } catch (e) {
+
+    }
+
+    // 业务相关公众号信息全局变量值
+    var comm = {
+        //weChatType:1：直采和直销，2：市区娱乐(微商城前端)
+        weChatType: "" || 1,
+        weChatImg: "", //公众号头图，分享用
+        weChatDescContent: "", //公众号副标题，分享用
+        frontEnv: "local",
+
+        weChatName: "", //公众号名称
+        groupName: "", //也是公众号名称，兼容旧代码变量
+        weChatPhone: "", //公众号联系电话
+        hotelInfo: _tempHotelInfo,
+        /*集团下首个酒店信息*/
+
+        hotelName: hotelName,
+        /*集团下首个酒店名称*/
+        hotelImg: (coverPic ? coverPic : ''),
+        /*集团下首个酒店封面图片*/
+        hotelPhone: hotelPhone,
+        /*集团下首个酒店联系电话*/
+        defaultIndexImg: location.protocol + "//" + location.host + '/srcv2/images/indexDef.png',
+        /*首页顶部默认缺省图*/
+        defaultHotelImg: location.protocol + "//" + location.host + '/srcv2/images/default_hotel_img.png',
+        /*酒店暂无图*/
+        defaultPromoterImg: location.protocol + "//" + location.host + "/srcv2/images/default_promoter_img.png",
+        /*推广员模块分享通用图*/
+        defaultUserAvatar: location.protocol + "//" + location.host + "/srcv2/images/user-default-avatar.png",
+        /*用户头像缺省图*/
+        apiHost: "http://api-dev.yunkezan.com/" || "//api.yunkezan.com/",
+        /*全局ajax接口host*/
+        queueHost: "http://queue-dev.yunkezan.com/" || "//queue.yunkezan.com/",
+        /*抢购系统Host*/
+        isPromoterAction: '',
+        /*是否属于推广员相关业务页面*/
+    };
+    </script>
+    <!-- <link rel="stylesheet" type="text/css" href="http://dvb-dev.yaochufa.com/distv2/style/common.css?v=112123123211533647907"> -->
+    <link rel="stylesheet" type="text/css" href="http://dvb-dev.yaochufa.com/distv2/style/lib/swiper.min.css?v=112123123211533648681">
+</head>
+
+<body>
+    <div id="app" class="page">
+        <page></page>
+    </div>
+    <script type="text/javascript">
+    /* 微信分享参数 */
+    var imgUrl = comm.weChatImg || comm.hotelImg; /*分享图片*/
+    var shareTitle = (comm.groupName || comm.hotelName); /*分享标题*/
+    var descContent = comm.weChatDescContent || "微信直销平台，超值低价，旅游度假的首选之处！"; /*分享内容*/
+    var lineLink = window.location.href;
+
+    //公众号类似属于微商城前端类型
+    if (comm && comm.weChatType && comm.weChatType != 1) {
+        descContent = comm.weChatDescContent || "吃喝玩乐，首选要出发生活！";
+    }
+
+    //用以复原分享页面默认值
+    var defShareObj = {
+        imgUrl: imgUrl,
+        shareTitle: shareTitle,
+        descContent: descContent,
+        lineLink: lineLink
+    }
+    </script>
+    <script>
+    // 锚点必备参数
+    var w_currentUrl = "";
+    var sessionId = "";
+    var clientIp = "";
+    var cityCode = "";
+    var logUrl = "";
+
+    var w_apiUrl = "";
+    var w_apiVersion = "";
+    var w_apiSystem = "";
+    var payApiUrl = "";
+
+    // 相关共用参数获取
+    var version = "1.0.1";
+    var system = "m";
+    var lang = "js";
+    var APIGEEHEADER2 = "MTUzNDY2NjYzMyNzeXN0ZW0sdmVyc2lvbixsYW5nLGltZWksIzM5MzdiNjc0YWIwM2ViNWI2YWEzNWI4YzRhNzM2OGRjOWZ6ZHkyN3o=";
+
+    var staticUrl = "http://cdn7.jinxidao.com/";
+    var staticVersion = "11212312321";
+    var webUrl = 'http://dvb-dev.yaochufa.com/';
+    var userId = '84'; /*用户id*/
+    var ykzUserId = ''; /*针对云客赞的用户id*/
+
+
+
+    var openId = 'oQcVb0RGo2_zoeD6mjQdn7ukjp6E'; /*微信openid*/
+    var ykzOpenId = ''; /*微信针对云客赞的openid*/
+
+    //本地环境没有ykzOpenId和ykzUserId
+    if (comm.frontEnv == 'local' && (!window.ykzOpenId || !window.ykzUserId)) {
+        window.ykzOpenId = "oQcVb0RGo2_zoeD6mjQdn7ykzOpenId";
+        window.ykzUserId = "999";
+    }
+
+    var userPhone = ''; /*用户手机*/
+    var weChatId = '30';
+    var isOpenSnaps = '0';
+    var roomId = ''; /*客房类型id*/
+    var Host = 'http://dvb-dev.yaochufa.com/'; // 接口请求url
+    var securityKey = 'zeFYr/eG7hvCeLuvo9hmDP7eTvtfKDyRnbwjezRZIO5/4Zbtm6GXBAej8tCjBzI7EcM6C9aBocpPTF45FDwaYpvh0MSqvupunyt8HkKAPQM6hKHInxqtGQ=='; //用户验证
+    window.notAutoRecord = true; //禁止首次自动打锚点
+    var skin = 'normal'; //'normal','kapasi'
+
+    var promoterRegisterCommission = '5'; //注册有礼佣金金额
+    var promoterInviteCommission = '5'; //邀请有礼佣金金额
+    var isOpenPromoterCommission = '1'; //是否开启邀请有礼 1开启 0关闭
+
+    //为id为app或v-app的元素添加kapasi、ykz-app类;
+    (function() {
+        if (skin == "kapasi" || mobileEnv == "app") {
+            var app = document.getElementById("app");
+            if (!app) {
+                app = document.getElementById("v-app");
+            }
+            if (app) {
+                skin == "kapasi" && app.classList.add("kapasi");
+                mobileEnv == "app" && app.classList.add("ykz-app");
+            }
+        }
+    })();
+    </script>
+    <script type="text/javascript" src="http://dvb-dev.yaochufa.com/srcv2/js/lib/jquery.js?v=112123123211533736255"></script>
+    <script type="text/javascript" src='http://dvb-dev.yaochufa.com/srcv2/js/lib/vue2.5.2.js?v=112123123211533637139'></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=CRishsGGHGdVWZW95NIzAeR4bG6fheWM"></script>
+    <script type="text/javascript" src='http://dvb-dev.yaochufa.com/srcv2/js/lib/swiper.js?v=112123123211533648681'></script>
+    <!-- built files will be auto injected -->
+</body>
+
+</html>
